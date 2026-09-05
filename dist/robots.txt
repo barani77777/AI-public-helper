@@ -1,5 +1,0 @@
-# CivicAI Robots.txt
-User-agent: *
-Allow: /
-
-Sitemap: https://civicai.org/sitemap.xml
