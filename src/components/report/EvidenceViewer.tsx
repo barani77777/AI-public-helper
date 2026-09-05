@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ZoomIn, Image as ImageIcon } from 'lucide-react';
 import { Modal } from '../ui/Modal';
+import { getAssetUrl } from '../../utils/assets';
 
 export interface EvidenceViewerProps {
   imageUrl?: string | null;
@@ -38,7 +39,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
     <>
       <div className={`group relative rounded-xl overflow-hidden border border-slate-200 bg-white shadow-sm ${className}`}>
         <img
-          src={imageUrl}
+          src={getAssetUrl(imageUrl)}
           alt={`Visual evidence of ${category}`}
           onError={() => setHasError(true)}
           className="w-full h-48 sm:h-64 object-cover transition-transform duration-300 group-hover:scale-105"
@@ -76,7 +77,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({
         <div className="space-y-4">
           <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 flex items-center justify-center">
             <img
-              src={imageUrl}
+              src={getAssetUrl(imageUrl)}
               alt={`High resolution evidence for ${category}`}
               className="max-h-[70vh] w-auto object-contain"
             />

@@ -10,6 +10,7 @@ import { ComplaintRecord } from '../../types/complaint';
 import { PriorityBadge } from '../ui/PriorityBadge';
 import { StatusBadge } from '../ui/StatusBadge';
 import { Button } from '../ui/Button';
+import { getAssetUrl } from '../../utils/assets';
 
 export interface StructuredReportProps {
   complaint: ComplaintRecord;
@@ -269,9 +270,10 @@ export const StructuredReport: React.FC<StructuredReportProps> = ({
             </h2>
             <div className="rounded-xl overflow-hidden border border-slate-200 max-w-md bg-white">
               <img
-                src={complaint.imageUrl}
+                src={getAssetUrl(complaint.imageUrl)}
                 alt={`Photographic evidence for complaint ${complaint.id}`}
                 className="w-full h-48 object-cover"
+                loading="lazy"
               />
               <div className="p-2.5 bg-slate-50 text-[11px] text-slate-500 border-t border-slate-200">
                 Timestamped citizen photographic attachment submitted during complaint intake.

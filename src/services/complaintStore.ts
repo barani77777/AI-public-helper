@@ -6,6 +6,7 @@ import {
   ComplaintStatus 
 } from '../types/complaint';
 import { CIVIC_DEPARTMENTS } from './aiClassifier';
+import { getAssetUrl } from '../utils/assets';
 
 const STORAGE_KEY = 'civic_ai_complaints_v4';
 
@@ -87,7 +88,7 @@ export const INITIAL_COMPLAINTS: ComplaintRecord[] = [
     department: 'Municipal Solid Waste Management & Health Bureau',
     departmentInfo: CIVIC_DEPARTMENTS.garbage,
     status: 'Assigned',
-    imageUrl: '/images/garbage_landfill.jpg',
+    imageUrl: getAssetUrl('/images/garbage_landfill.jpg'),
     createdAt: '2026-09-02T11:20:00Z',
     reporter: 'Citizen #1029',
     affectedPeople: 850,
@@ -145,7 +146,7 @@ export const INITIAL_COMPLAINTS: ComplaintRecord[] = [
     department: 'Storm Water Drainage & Sewerage Board',
     departmentInfo: CIVIC_DEPARTMENTS.drainage,
     status: 'In Progress',
-    imageUrl: '/images/drainage_waste_canal.jpg',
+    imageUrl: getAssetUrl('/images/drainage_waste_canal.jpg'),
     createdAt: '2026-09-01T15:30:00Z',
     reporter: 'Citizen #7723',
     affectedPeople: 40,

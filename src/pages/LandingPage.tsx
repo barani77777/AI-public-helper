@@ -17,6 +17,7 @@ import {
 import { Button } from '../components/ui/Button';
 import { updatePageSEO } from '../utils/seo';
 import { useTranslation } from '../i18n/LanguageContext';
+import { getAssetUrl } from '../utils/assets';
 
 export interface LandingPageProps {
   onStartReport: (category?: string) => void;
@@ -36,7 +37,7 @@ const CATEGORIES = [
     borderColor: 'border-amber-200',
     iconColor: 'text-amber-700',
     hoverBg: 'hover:bg-amber-100',
-    image: '/images/pothole_road.jpg',
+    image: getAssetUrl('/images/pothole_road.jpg'),
   },
   {
     id: 'garbage',
@@ -47,7 +48,7 @@ const CATEGORIES = [
     borderColor: 'border-emerald-200',
     iconColor: 'text-emerald-700',
     hoverBg: 'hover:bg-emerald-100',
-    image: '/images/garbage_landfill.jpg',
+    image: getAssetUrl('/images/garbage_landfill.jpg'),
   },
   {
     id: 'streetlights',
@@ -69,7 +70,7 @@ const CATEGORIES = [
     borderColor: 'border-teal-200',
     iconColor: 'text-teal-700',
     hoverBg: 'hover:bg-teal-100',
-    image: '/images/water_pipeline_burst.jpg',
+    image: getAssetUrl('/images/water_pipeline_burst.jpg'),
   },
   {
     id: 'drainage',
@@ -80,7 +81,7 @@ const CATEGORIES = [
     borderColor: 'border-cyan-200',
     iconColor: 'text-cyan-800',
     hoverBg: 'hover:bg-cyan-100',
-    image: '/images/drainage_waste_canal.jpg',
+    image: getAssetUrl('/images/drainage_waste_canal.jpg'),
   },
   {
     id: 'others',
@@ -98,27 +99,32 @@ const CATEGORIES = [
 // Real evidence photos for the bottom gallery
 const REAL_PROBLEMS = [
   {
-    image: '/images/pothole_road.jpg',
+    image: getAssetUrl('/images/pothole_road.jpg'),
+    fallbackImage: 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80',
     caption: { en: 'Pothole-riddled road', ta: 'பள்ளம் நிறைந்த சாலை', hi: 'गड्ढों से भरी सड़क' },
     location: 'Tamil Nadu',
   },
   {
-    image: '/images/garbage_landfill.jpg',
+    image: getAssetUrl('/images/garbage_landfill.jpg'),
+    fallbackImage: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80',
     caption: { en: 'Open garbage landfill', ta: 'திறந்தவெளி குப்பைக்கிடங்கு', hi: 'खुला कचरा भराव' },
     location: 'India',
   },
   {
-    image: '/images/garbage_canal.jpg',
+    image: getAssetUrl('/images/garbage_canal.jpg'),
+    fallbackImage: 'https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?auto=format&fit=crop&w=800&q=80',
     caption: { en: 'Canal choked with plastic waste', ta: 'பிளாஸ்டிக் கழிவுகளால் அடைத்த கால்வாய்', hi: 'प्लास्टिक कचरे से भरी नाली' },
     location: 'India',
   },
   {
-    image: '/images/drainage_waste_canal.jpg',
+    image: getAssetUrl('/images/drainage_waste_canal.jpg'),
+    fallbackImage: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
     caption: { en: 'Blocked drainage canal', ta: 'அடைபட்ட வடிகால் கால்வாய்', hi: 'அவர்ुद्ध जल निकासी नाली' },
     location: 'India',
   },
   {
-    image: '/images/water_pipeline_burst.jpg',
+    image: getAssetUrl('/images/water_pipeline_burst.jpg'),
+    fallbackImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=800&q=80',
     caption: { en: 'Water pipeline burst', ta: 'குடிநீர் குழாய் வெடிப்பு', hi: 'पानी की पाइपलाइन फटना' },
     location: 'India',
   },
@@ -180,7 +186,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* Ambient background glow & subtle city backdrop */}
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-15 filter blur-xs mix-blend-multiply"
-          style={{ backgroundImage: 'url(/images/city_hero_bg.jpg)' }}
+          style={{ backgroundImage: `url(${getAssetUrl('/images/city_hero_bg.jpg')})` }}
           aria-hidden="true"
         />
 
@@ -262,10 +268,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {/* Ultra High Clarity Photo - Displayed in natural crisp aspect ratio without pixel stretching */}
               <div className="w-full max-w-[380px] sm:max-w-[420px] aspect-[3/4] rounded-2xl overflow-hidden relative shadow-inner bg-neutral-900">
                 <img 
-                  src="/images/city_hero_bg.jpg" 
+                  src={getAssetUrl('/images/city_hero_bg.jpg')} 
                   alt="City Landmark - Gateway of India Mumbai with sunrise and pigeons" 
                   className="w-full h-full object-cover object-center image-crisp transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
+                  onError={(e) => {
+                    // Fallback to high-res CDN if local path is obstructed
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&q=85';
+                  }}
                 />
                 
                 {/* 3D Glass Light Sheen Reflection */}
@@ -406,6 +416,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     alt={problem.caption[language as keyof typeof problem.caption] || problem.caption.en}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
+                    onError={(e) => {
+                      if (problem.fallbackImage && e.currentTarget.src !== problem.fallbackImage) {
+                        e.currentTarget.src = problem.fallbackImage;
+                      }
+                    }}
                   />
                 </div>
                 <div className="p-3.5">

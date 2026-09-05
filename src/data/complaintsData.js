@@ -1,4 +1,5 @@
 // CivicAI — Public Facility Complaint Classifier (Tamil Nadu Infrastructure)
+import { getAssetUrl } from '../utils/assets';
 
 export const TN_DISTRICTS = [
   'Chennai',
@@ -156,7 +157,7 @@ export const REFERENCE_PHOTOS_GUIDE = [
     title: 'Massive Open Landfill & Waste Reference',
     description: 'Capture active heavy machinery, overflowing dumping terrain, or roadside waste piles.',
     tips: 'Show earthmovers or waste depth encroaching into surrounding settlement paths.',
-    imageUrl: '/images/garbage_landfill.jpg',
+    imageUrl: getAssetUrl('/images/garbage_landfill.jpg'),
     sampleText: 'Massive open garbage dump overflowing with tractor scrapers operating; pungent stench and plastic pollution in surrounding area.',
     location: 'Perungudi / Pallikaranai Dump Yard Corridor, Chennai',
     district: 'Chennai'
@@ -189,7 +190,7 @@ export const REFERENCE_PHOTOS_GUIDE = [
     title: 'Residential Silt & Sewage Canal Blockage',
     description: 'Capture open storm drain clogged with plastic debris, mud silt, and domestic refuse.',
     tips: 'Highlight if wastewater is stagnating near colony houses or pedestrian walkways.',
-    imageUrl: '/images/drainage_waste_canal.jpg',
+    imageUrl: getAssetUrl('/images/drainage_waste_canal.jpg'),
     sampleText: 'Colony open drainage canal completely blocked with plastic waste and mud silt; foul wastewater stagnating adjacent to homes.',
     location: 'Anuppanadi Canal Bank Road, Madurai',
     district: 'Madurai'
@@ -313,7 +314,7 @@ export const PRESET_TEST_SCENARIOS = [
     category: 'Garbage Dump',
     location: 'Perungudi / Pallikaranai Dump Yard Corridor, Chennai',
     district: 'Chennai',
-    imageUrl: '/images/garbage_landfill.jpg',
+    imageUrl: getAssetUrl('/images/garbage_landfill.jpg'),
     confidence: 97,
     priority: 'Critical',
     priorityScore: 92,
@@ -325,7 +326,7 @@ export const PRESET_TEST_SCENARIOS = [
     category: 'Drainage Block',
     location: 'Anuppanadi Canal Bank Road, Madurai (Ward 46)',
     district: 'Madurai',
-    imageUrl: '/images/drainage_waste_canal.jpg',
+    imageUrl: getAssetUrl('/images/drainage_waste_canal.jpg'),
     confidence: 95,
     priority: 'High',
     priorityScore: 84,

@@ -7,6 +7,7 @@ import {
   ChevronRight 
 } from 'lucide-react';
 import { REFERENCE_PHOTOS_GUIDE } from '../data/complaintsData';
+import { getAssetUrl } from '../utils/assets';
 
 export default function ReferencePhotoGuide({ isOpen, onClose, onSelectReference }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -70,9 +71,10 @@ export default function ReferencePhotoGuide({ isOpen, onClose, onSelectReference
                   {/* Photo container */}
                   <div className="relative w-full h-44 overflow-hidden bg-slate-100">
                     <img 
-                      src={item.imageUrl} 
+                      src={getAssetUrl(item.imageUrl)} 
                       alt={item.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
                     />
                     <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-xs px-2 py-0.5 rounded text-[11px] font-bold text-slate-800 border border-slate-200 shadow-xs">
                       {item.category}

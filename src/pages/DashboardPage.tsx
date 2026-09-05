@@ -28,6 +28,7 @@ import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
 import { Select } from '../components/ui/Select';
 import { EmptyState } from '../components/ui/EmptyState';
+import { getAssetUrl } from '../utils/assets';
 import { updatePageSEO } from '../utils/seo';
 import IsometricCity from '../components/IsometricCity';
 import { useTranslation } from '../i18n/LanguageContext';
@@ -411,7 +412,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                             <div className="flex items-center space-x-2">
                               {c.imageUrl && (
                                 <img
-                                  src={c.imageUrl}
+                                  src={getAssetUrl(c.imageUrl)}
                                   alt=""
                                   className="w-7 h-7 rounded-md object-cover border border-[#E8E0D8]"
                                 />
@@ -493,7 +494,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <div className="flex items-start space-x-3">
                       {c.imageUrl && (
                         <img
-                          src={c.imageUrl}
+                          src={getAssetUrl(c.imageUrl)}
                           alt=""
                           className="w-16 h-16 rounded-xl object-cover border border-[#E8E0D8] flex-shrink-0"
                         />
